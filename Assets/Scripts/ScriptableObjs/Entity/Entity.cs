@@ -7,5 +7,5 @@ public class Entity : ScriptableObject
 {
     // Entity
     public float runSpeed, walkSpeed;
-    public GameObject[] itemDrops;
+    public GameObject itemDrop; 
 }

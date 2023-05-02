@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
@@ -12,6 +13,9 @@ public class DialogueManager : MonoBehaviour
 
     private Dialogue currentDialogue;
     private Queue<string> sentences;
+
+    public delegate void OnUnlockChestEventHandler();
+    public static event OnUnlockChestEventHandler OnUnlockChestEvent;
 
     void Start()
     {
@@ -27,16 +31,12 @@ public class DialogueManager : MonoBehaviour
 
         sentences.Clear();
 
-        if (currentDialogue.unlocked)
-        {
-            foreach (string un_sentence in currentDialogue.unlocked_sentences)
-            {
+        if (currentDialogue.unlocked){
+            foreach (string un_sentence in currentDialogue.unlocked_sentences){
                 sentences.Enqueue(un_sentence);
             }
-        } else
-        {
-            foreach (string sentence in currentDialogue.sentences)
-            {
+        } else {
+            foreach (string sentence in currentDialogue.sentences){
                 sentences.Enqueue(sentence);
             }
         }
@@ -46,8 +46,7 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayNextSentence()
     {
-        if (sentences.Count == 0)
-        {
+        if (sentences.Count == 0){
             EndDialogue();
             return;
         }
@@ -60,15 +59,17 @@ public class DialogueManager : MonoBehaviour
     {
         sentences.Clear();
         DialogueCanvas.enabled = false;
-        if (currentDialogue.unlocked)
+        if (!currentDialogue.unlocked) return;
+        // Item/tasks cases
+        switch (currentDialogue.name)
         {
-            // Item/tasks cases
-            if (currentDialogue.name == "Unknown Box")
-            {
-                // Trigger any animation (e.g. open box)
-                Debug.Log("Box opening");
-                return;
-            }
+            case "Unknown Box":
+                OnUnlockChestEvent.Invoke();
+                break;
+            case "???":
+                // End game case
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                break;
         }
     }
 }

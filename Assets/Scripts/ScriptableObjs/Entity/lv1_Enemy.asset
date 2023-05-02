@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8d0c8b78dfb5b24aa5c3b483c72b964, type: 3}
   m_Name: lv1_Enemy
   m_EditorClassIdentifier: 
-  hp: 100
   runSpeed: 10
   walkSpeed: 4
+  itemDrop: {fileID: 6062735824529442767, guid: 1db7ea81ccffa6640b6d38d3b65ff879, type: 3}

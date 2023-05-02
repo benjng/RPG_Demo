@@ -25,16 +25,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Check if mouse is hovering over UI. If so, stop player movement
-        //if (EventSystem.current.IsPointerOverGameObject())
-        //{
-        //    return;
-        //}
-
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-
-        Vector3 cameraForward = cameraTransform.forward;
+        Vector3 cameraForward = new Vector3(cameraTransform.forward.x, 0, cameraTransform.forward.z); ; // <=======
         Vector3 cameraRight = cameraTransform.right;
         Vector3 moveDir = verticalInput * cameraForward + horizontalInput * cameraRight;
         Vector3 pToMouseDir = Vector3.zero;
@@ -50,10 +43,10 @@ public class PlayerMovement : MonoBehaviour
         cameraHitObjs = Physics.RaycastAll(cameraToPlayerRay);
         if (cameraHitObjs != null)
         {
-            foreach (RaycastHit hit in cameraHitObjs)
-            {
-                Debug.Log(hit.collider.name);
-            }
+            //foreach (RaycastHit hit in cameraHitObjs)
+            //{
+            //    Debug.Log(hit.collider.name);
+            //}
         }
 
         // Find Camera hitting point in world space
@@ -87,16 +80,14 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime); 
 
         // Check if player is running or not
-        if (Input.GetKey("left shift"))
-        {
+        if (Input.GetKey("left shift")) {
             speed = runSpeed;
-        }
-        else
-        {
+        } else {
             speed = walkSpeed;
         }
 
-        rb.MovePosition(transform.position + moveDir * speed * Time.fixedDeltaTime);
+        //rb.MovePosition(transform.position + moveDir * speed * Time.fixedDeltaTime);
+        rb.AddForce(moveDir * speed, ForceMode.VelocityChange);
     }
 
     private void Update()

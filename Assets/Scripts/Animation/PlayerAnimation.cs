@@ -7,12 +7,12 @@ public class PlayerAnimation : MonoBehaviour
     Animator animator;
     
     //Animation States
-    const string PLAYER_JUMP = "Jump";
-    const string PLAYER_IDLE = "Idle";
-    const string PLAYER_GATHER = "Gather";
-    const string PLAYER_ATTACK = "Attack";
-    const string PLAYER_RUN = "Sprint";
-    const string PLAYER_WALK = "Walk";
+    //const string PLAYER_JUMP = "Jump";
+    const string PLAYER_IDLE = "isIdling";
+    //const string PLAYER_GATHER = "Gather";
+    const string PLAYER_ATTACK = "triggerAttack";
+    const string PLAYER_RUN = "isSprinting";
+    const string PLAYER_WALK = "isWalking";
 
     private float nextAtkTime = 0f;
     private float atkRate;
@@ -31,16 +31,9 @@ public class PlayerAnimation : MonoBehaviour
         // STOP current state immediately
         if (currentState != newState)
         {
-            animator.ResetTrigger(currentState); 
+            animator.SetBool(currentState, false);
         }
-
-        // No other change during transition
-        if (animator.IsInTransition(0))
-        {
-            return;
-        }
-
-        animator.SetTrigger(newState);
+        animator.SetBool(newState, true);
         currentState = newState;
     }
 
@@ -51,7 +44,7 @@ public class PlayerAnimation : MonoBehaviour
         bool leftPressed = Input.GetKey("a");
         bool rightPressed = Input.GetKey("d");
         bool shiftPressed = Input.GetKey("left shift");
-        bool spacePressed = Input.GetButtonDown("Jump");
+        //bool spacePressed = Input.GetButtonDown("Jump");
         bool leftMouseClicked = Input.GetMouseButtonDown(0);
 
         if (!Input.anyKey) // No key pressed case
@@ -62,7 +55,7 @@ public class PlayerAnimation : MonoBehaviour
 
         if (leftMouseClicked && Time.time > nextAtkTime) // ATTACK
         {
-            ChangeAnimationState(PLAYER_ATTACK);
+            animator.SetTrigger(PLAYER_ATTACK);
             nextAtkTime = Time.time + atkRate;
             return;
         }
@@ -86,6 +79,7 @@ public class PlayerAnimation : MonoBehaviour
         //}
 
         // Any other unexpected key combinations
-        ChangeAnimationState(PLAYER_IDLE);
+        if (currentState != PLAYER_IDLE)
+            ChangeAnimationState(PLAYER_IDLE);
     }
 }

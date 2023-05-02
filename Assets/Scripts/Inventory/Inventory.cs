@@ -55,4 +55,12 @@ public class Inventory : MonoBehaviour
         if (onItemChangedCallback != null)
             onItemChangedCallback.Invoke(); // Event trigger
     }
+
+    public bool CheckIfHasItem(Item itemToCheck){
+        foreach (Item item in items)
+        {
+            if (item.name == itemToCheck.name) return true;
+        }
+        return false;
+    }
 }
