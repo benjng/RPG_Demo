@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8d0c8b78dfb5b24aa5c3b483c72b964, type: 3}
+  m_Name: lv2_Enemy
+  m_EditorClassIdentifier: 
+  runSpeed: 11
+  walkSpeed: 5
+  itemDrops:
+  - {fileID: 4578603952510363742, guid: 0d2d2bf72f8cf3a4e9c99badc0e14ce9, type: 3}
+  - {fileID: 6062735824529442767, guid: 1db7ea81ccffa6640b6d38d3b65ff879, type: 3}

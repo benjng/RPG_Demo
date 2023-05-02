@@ -1,0 +1,19 @@
+/.vs
+/.vscode
+/.vsconfig
+/Assembly-CSharp-Editor.csproj
+/Assembly-CSharp.csproj
+/FirstGame.sln
+/Library
+/Logs
+/My project.sln
+/NewAssembly.csproj
+/obj
+/OverviewMap.png
+/Packages
+/ProjectSettings
+/RPG_Demo.sln
+/Temp
+/Unity.RenderPipelines.HighDefinition.Config.Runtime.csproj
+/Unity.RenderPipelines.HighDefinitionConfig.Editor.Tests.csproj
+/UserSettings
